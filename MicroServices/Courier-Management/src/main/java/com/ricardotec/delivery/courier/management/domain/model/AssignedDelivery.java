@@ -32,4 +32,28 @@ public class AssignedDelivery {
         delivery.setCourier(courier);
         return delivery;
     }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public OffsetDateTime getAssignedAt() {
+        return assignedAt;
+    }
+
+    public void setAssignedAt(OffsetDateTime assignedAt) {
+        this.assignedAt = assignedAt;
+    }
+
+    public Courier getCourier() {
+        return courier;
+    }
+
+    public void setCourier(Courier courier) {
+        this.courier = courier;
+    }
 }

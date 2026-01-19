@@ -14,9 +14,9 @@ import java.util.UUID;
 
 @Entity
 @Getter
+@Setter(AccessLevel.PRIVATE)
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
-@Setter(AccessLevel.PRIVATE)
 public class Courier {
 
     @Id
@@ -71,4 +71,55 @@ public class Courier {
         this.lastFulfilledDeliveryAt = OffsetDateTime.now();
     }
 
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public Integer getFulfilledDeliveriesQuantity() {
+        return fulfilledDeliveriesQuantity;
+    }
+
+    public void setFulfilledDeliveriesQuantity(Integer fulfilledDeliveriesQuantity) {
+        this.fulfilledDeliveriesQuantity = fulfilledDeliveriesQuantity;
+    }
+
+    public Integer getPendingDeliveriesQuantity() {
+        return pendingDeliveriesQuantity;
+    }
+
+    public void setPendingDeliveriesQuantity(Integer pendingDeliveriesQuantity) {
+        this.pendingDeliveriesQuantity = pendingDeliveriesQuantity;
+    }
+
+    public OffsetDateTime getLastFulfilledDeliveryAt() {
+        return lastFulfilledDeliveryAt;
+    }
+
+    public void setLastFulfilledDeliveryAt(OffsetDateTime lastFulfilledDeliveryAt) {
+        this.lastFulfilledDeliveryAt = lastFulfilledDeliveryAt;
+    }
+
+    public void setPendingDeliveries(List<AssignedDelivery> pendingDeliveries) {
+        this.pendingDeliveries = pendingDeliveries;
+    }
 }

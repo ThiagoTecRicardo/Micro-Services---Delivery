@@ -1,8 +1,9 @@
 package com.ricardotec.delivery.delivery.tracking.domain.model;
 
-import com.algaworks.algadelivery.delivery.tracking.domain.exception.DomainException;
+import com.ricardotec.delivery.delivery.tracking.exception.DomainException;
 import jakarta.persistence.*;
 import lombok.*;
+
 
 import java.math.BigDecimal;
 import java.time.Duration;
@@ -168,6 +169,114 @@ public class Delivery {
         this.setStatus(newStatus);
     }
 
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public UUID getCourierId() {
+        return courierId;
+    }
+
+    public void setCourierId(UUID courierId) {
+        this.courierId = courierId;
+    }
+
+    public DeliveryStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(DeliveryStatus status) {
+        this.status = status;
+    }
+
+    public OffsetDateTime getPlacedAt() {
+        return placedAt;
+    }
+
+    public void setPlacedAt(OffsetDateTime placedAt) {
+        this.placedAt = placedAt;
+    }
+
+    public OffsetDateTime getAssignedAt() {
+        return assignedAt;
+    }
+
+    public void setAssignedAt(OffsetDateTime assignedAt) {
+        this.assignedAt = assignedAt;
+    }
+
+    public OffsetDateTime getExpectedDeliveryAt() {
+        return expectedDeliveryAt;
+    }
+
+    public void setExpectedDeliveryAt(OffsetDateTime expectedDeliveryAt) {
+        this.expectedDeliveryAt = expectedDeliveryAt;
+    }
+
+    public OffsetDateTime getFulfilledAt() {
+        return fulfilledAt;
+    }
+
+    public void setFulfilledAt(OffsetDateTime fulfilledAt) {
+        this.fulfilledAt = fulfilledAt;
+    }
+
+    public BigDecimal getDistanceFee() {
+        return distanceFee;
+    }
+
+    public void setDistanceFee(BigDecimal distanceFee) {
+        this.distanceFee = distanceFee;
+    }
+
+    public BigDecimal getCourierPayout() {
+        return courierPayout;
+    }
+
+    public void setCourierPayout(BigDecimal courierPayout) {
+        this.courierPayout = courierPayout;
+    }
+
+    public BigDecimal getTotalCost() {
+        return totalCost;
+    }
+
+    public void setTotalCost(BigDecimal totalCost) {
+        this.totalCost = totalCost;
+    }
+
+    public Integer getTotalItems() {
+        return totalItems;
+    }
+
+    public void setTotalItems(Integer totalItems) {
+        this.totalItems = totalItems;
+    }
+
+    public ContactPoint getSender() {
+        return sender;
+    }
+
+    public void setSender(ContactPoint sender) {
+        this.sender = sender;
+    }
+
+    public ContactPoint getRecipient() {
+        return recipient;
+    }
+
+    public void setRecipient(ContactPoint recipient) {
+        this.recipient = recipient;
+    }
+
+    public void setItems(List<Item> items) {
+        this.items = items;
+    }
+
     @Getter
     @AllArgsConstructor
     @Builder
@@ -177,5 +286,46 @@ public class Delivery {
         private BigDecimal distanceFee;
         private BigDecimal courierPayout;
         private Duration expectedDeliveryTime;
+
+
+        public ContactPoint getSender() {
+            return sender;
+        }
+
+        public void setSender(ContactPoint sender) {
+            this.sender = sender;
+        }
+
+        public ContactPoint getRecipient() {
+            return recipient;
+        }
+
+        public void setRecipient(ContactPoint recipient) {
+            this.recipient = recipient;
+        }
+
+        public BigDecimal getDistanceFee() {
+            return distanceFee;
+        }
+
+        public void setDistanceFee(BigDecimal distanceFee) {
+            this.distanceFee = distanceFee;
+        }
+
+        public BigDecimal getCourierPayout() {
+            return courierPayout;
+        }
+
+        public void setCourierPayout(BigDecimal courierPayout) {
+            this.courierPayout = courierPayout;
+        }
+
+        public Duration getExpectedDeliveryTime() {
+            return expectedDeliveryTime;
+        }
+
+        public void setExpectedDeliveryTime(Duration expectedDeliveryTime) {
+            this.expectedDeliveryTime = expectedDeliveryTime;
+        }
     }
 }
