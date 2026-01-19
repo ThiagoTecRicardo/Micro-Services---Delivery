@@ -278,8 +278,7 @@ public class Delivery {
         this.items = items;
     }
 
-    @Getter
-    @AllArgsConstructor
+
     public static class PreparationDetails {
         private ContactPoint sender;
         private ContactPoint recipient;

@@ -85,7 +85,7 @@ public class DeliveryPreparationService {
                 .courierPayout(calculatedPayout)
                 .distanceFee(distanceFee)
                 .build();
-        
+
 
 
         delivery.editPreparationDetails(preparationDetails);
