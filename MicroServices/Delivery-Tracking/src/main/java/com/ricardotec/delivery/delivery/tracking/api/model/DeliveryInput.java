@@ -26,4 +26,27 @@ public class DeliveryInput {
     @Size(min = 1)
     private List<ItemInput> items;
 
+    public ContactPointInput getSender() {
+        return sender;
+    }
+
+    public void setSender(ContactPointInput sender) {
+        this.sender = sender;
+    }
+
+    public ContactPointInput getRecipient() {
+        return recipient;
+    }
+
+    public void setRecipient(ContactPointInput recipient) {
+        this.recipient = recipient;
+    }
+
+    public List<ItemInput> getItems() {
+        return items;
+    }
+
+    public void setItems(List<ItemInput> items) {
+        this.items = items;
+    }
 }

@@ -1,13 +1,14 @@
 package com.ricardotec.delivery.delivery.tracking.service;
 
-import com.algaworks.algadelivery.delivery.tracking.api.model.ContactPointInput;
-import com.algaworks.algadelivery.delivery.tracking.api.model.DeliveryInput;
-import com.algaworks.algadelivery.delivery.tracking.api.model.ItemInput;
-import com.algaworks.algadelivery.delivery.tracking.domain.exception.DomainException;
-import com.algaworks.algadelivery.delivery.tracking.domain.model.ContactPoint;
-import com.algaworks.algadelivery.delivery.tracking.domain.model.Delivery;
-import com.algaworks.algadelivery.delivery.tracking.domain.repository.DeliveryRepository;
+import com.ricardotec.delivery.delivery.tracking.api.model.ContactPointInput;
+import com.ricardotec.delivery.delivery.tracking.api.model.DeliveryInput;
+import com.ricardotec.delivery.delivery.tracking.api.model.ItemInput;
+import com.ricardotec.delivery.delivery.tracking.exception.DomainException;
+import com.ricardotec.delivery.delivery.tracking.domain.model.ContactPoint;
+import com.ricardotec.delivery.delivery.tracking.domain.model.Delivery;
+import com.ricardotec.delivery.delivery.tracking.repository.DeliveryRepository;
 import jakarta.validation.Valid;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,14 +17,23 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.UUID;
 
+import static com.ricardotec.delivery.delivery.tracking.domain.model.ContactPoint.*;
+import static com.ricardotec.delivery.delivery.tracking.domain.model.Delivery.*;
+
 @Service
-@RequiredArgsConstructor
+@Getter
 public class DeliveryPreparationService {
 
     private final DeliveryRepository deliveryRepository;
 
     private final DeliveryTimeEstimationService deliveryTimeEstimationService;
     private final CourierPayoutCalculationService courierPayoutCalculationService;
+
+    public DeliveryPreparationService(DeliveryRepository deliveryRepository, DeliveryTimeEstimationService deliveryTimeEstimationService, CourierPayoutCalculationService courierPayoutCalculationService) {
+        this.deliveryRepository = deliveryRepository;
+        this.deliveryTimeEstimationService = deliveryTimeEstimationService;
+        this.courierPayoutCalculationService = courierPayoutCalculationService;
+    }
 
     @Transactional
     public com.ricardotec.delivery.delivery.tracking.domain.model.Delivery draft(com.ricardotec.delivery.delivery.tracking.api.model.@Valid DeliveryInput input) {
@@ -45,7 +55,7 @@ public class DeliveryPreparationService {
         ContactPointInput senderInput = input.getSender();
         ContactPointInput recipientInput = input.getRecipient();
 
-        ContactPoint sender = ContactPoint.builder()
+        ContactPoint sender = builder()
                 .phone(senderInput.getPhone())
                 .name(senderInput.getName())
                 .complement(senderInput.getComplement())
@@ -54,7 +64,7 @@ public class DeliveryPreparationService {
                 .street(senderInput.getStreet())
                 .build();
 
-        ContactPoint recipient = ContactPoint.builder()
+        ContactPoint recipient = builder()
                 .phone(recipientInput.getPhone())
                 .name(recipientInput.getName())
                 .complement(recipientInput.getComplement())
@@ -68,13 +78,15 @@ public class DeliveryPreparationService {
 
         BigDecimal distanceFee = calculateFee(estimate.getDistanceInKm());
 
-        var preparationDetails = Delivery.PreparationDetails.builder()
+        var preparationDetails = PreparationDetails.builder()
                 .recipient(recipient)
                 .sender(sender)
                 .expectedDeliveryTime(estimate.getEstimatedTime())
                 .courierPayout(calculatedPayout)
                 .distanceFee(distanceFee)
                 .build();
+        
+
 
         delivery.editPreparationDetails(preparationDetails);
 
@@ -89,4 +101,15 @@ public class DeliveryPreparationService {
                 .setScale(2, RoundingMode.HALF_EVEN);
     }
 
+    public DeliveryRepository getDeliveryRepository() {
+        return deliveryRepository;
+    }
+
+    public DeliveryTimeEstimationService getDeliveryTimeEstimationService() {
+        return deliveryTimeEstimationService;
+    }
+
+    public CourierPayoutCalculationService getCourierPayoutCalculationService() {
+        return courierPayoutCalculationService;
+    }
 }

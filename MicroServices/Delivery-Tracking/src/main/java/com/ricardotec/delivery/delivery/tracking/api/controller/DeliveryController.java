@@ -8,7 +8,7 @@ import com.ricardotec.delivery.delivery.tracking.repository.DeliveryRepository;
 import com.ricardotec.delivery.delivery.tracking.service.DeliveryCheckpointService;
 import com.ricardotec.delivery.delivery.tracking.service.DeliveryPreparationService;
 import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
+
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.data.web.PagedModel;
@@ -20,7 +20,6 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/deliveries")
-@RequiredArgsConstructor
 public class DeliveryController {
 
     private final DeliveryPreparationService deliveryPreparationService;

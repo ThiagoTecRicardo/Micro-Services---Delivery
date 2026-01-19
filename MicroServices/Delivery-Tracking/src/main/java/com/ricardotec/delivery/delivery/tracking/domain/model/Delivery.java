@@ -18,6 +18,7 @@ import java.util.UUID;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Setter(AccessLevel.PRIVATE)
 @Getter
+@Builder
 public class Delivery {
 
     @Id
@@ -279,13 +280,16 @@ public class Delivery {
 
     @Getter
     @AllArgsConstructor
-    @Builder
     public static class PreparationDetails {
         private ContactPoint sender;
         private ContactPoint recipient;
         private BigDecimal distanceFee;
         private BigDecimal courierPayout;
         private Duration expectedDeliveryTime;
+
+        public static Object builder() {
+            return null;
+        }
 
 
         public ContactPoint getSender() {

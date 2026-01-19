@@ -3,7 +3,7 @@ package com.ricardotec.delivery.delivery.tracking.infrastructure.http.client;
 import com.ricardotec.delivery.delivery.tracking.exception.DomainException;
 import com.ricardotec.delivery.delivery.tracking.domain.model.Delivery;
 import com.ricardotec.delivery.delivery.tracking.repository.DeliveryRepository;
-import lombok.RequiredArgsConstructor;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,7 +11,7 @@ import java.util.UUID;
 
 @Service
 @Transactional
-@RequiredArgsConstructor
+
 public class DeliveryCheckpointService {
 
     private final DeliveryRepository deliveryRepository;

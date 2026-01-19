@@ -1,29 +1,35 @@
 package com.ricardotec.delivery.delivery.tracking.infrastructure.http.client;
 
-import com.algaworks.algadelivery.delivery.tracking.api.model.ContactPointInput;
-import com.algaworks.algadelivery.delivery.tracking.api.model.DeliveryInput;
-import com.algaworks.algadelivery.delivery.tracking.api.model.ItemInput;
-import com.algaworks.algadelivery.delivery.tracking.domain.exception.DomainException;
-import com.algaworks.algadelivery.delivery.tracking.domain.model.ContactPoint;
-import com.algaworks.algadelivery.delivery.tracking.domain.model.Delivery;
-import com.algaworks.algadelivery.delivery.tracking.domain.repository.DeliveryRepository;
-import lombok.RequiredArgsConstructor;
+import com.ricardotec.delivery.delivery.tracking.api.model.ContactPointInput;
+import com.ricardotec.delivery.delivery.tracking.api.model.DeliveryInput;
+import com.ricardotec.delivery.delivery.tracking.api.model.ItemInput;
+import com.ricardotec.delivery.delivery.tracking.exception.DomainException;
+import com.ricardotec.delivery.delivery.tracking.domain.model.ContactPoint;
+import com.ricardotec.delivery.delivery.tracking.domain.model.Delivery;
+import com.ricardotec.delivery.delivery.tracking.repository.DeliveryRepository;
+import lombok.Builder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.time.Duration;
 import java.util.UUID;
 
 @Service
-@RequiredArgsConstructor
+@Builder
 public class DeliveryPreparationService {
 
     private final DeliveryRepository deliveryRepository;
 
     private final DeliveryTimeEstimationService deliveryTimeEstimationService;
     private final CourierPayoutCalculationService courierPayoutCalculationService;
+
+    public DeliveryPreparationService(DeliveryRepository deliveryRepository, DeliveryTimeEstimationService deliveryTimeEstimationService, CourierPayoutCalculationService courierPayoutCalculationService) {
+        this.deliveryRepository = deliveryRepository;
+        this.deliveryTimeEstimationService = deliveryTimeEstimationService;
+        this.courierPayoutCalculationService = courierPayoutCalculationService;
+    }
 
     @Transactional
     public Delivery draft(DeliveryInput input) {
@@ -89,4 +95,15 @@ public class DeliveryPreparationService {
                 .setScale(2, RoundingMode.HALF_EVEN);
     }
 
+    public DeliveryRepository getDeliveryRepository() {
+        return deliveryRepository;
+    }
+
+    public DeliveryTimeEstimationService getDeliveryTimeEstimationService() {
+        return deliveryTimeEstimationService;
+    }
+
+    public CourierPayoutCalculationService getCourierPayoutCalculationService() {
+        return courierPayoutCalculationService;
+    }
 }
