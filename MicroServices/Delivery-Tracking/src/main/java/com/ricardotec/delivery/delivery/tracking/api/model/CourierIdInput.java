@@ -9,4 +9,9 @@ import java.util.UUID;
 @Setter
 public class CourierIdInput {
     private UUID courierId;
+
+
+    public UUID getCourierId() {
+        return null;
+    }
 }

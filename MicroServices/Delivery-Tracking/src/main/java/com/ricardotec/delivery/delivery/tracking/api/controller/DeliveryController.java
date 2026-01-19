@@ -4,7 +4,9 @@ package com.ricardotec.delivery.delivery.tracking.api.controller;
 import com.ricardotec.delivery.delivery.tracking.api.model.CourierIdInput;
 import com.ricardotec.delivery.delivery.tracking.api.model.DeliveryInput;
 import com.ricardotec.delivery.delivery.tracking.domain.model.Delivery;
-import com.ricardotec.delivery.delivery.tracking.domain.*;
+import com.ricardotec.delivery.delivery.tracking.repository.DeliveryRepository;
+import com.ricardotec.delivery.delivery.tracking.service.DeliveryCheckpointService;
+import com.ricardotec.delivery.delivery.tracking.service.DeliveryPreparationService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -25,6 +27,12 @@ public class DeliveryController {
     private final DeliveryCheckpointService deliveryCheckpointService;
 
     private final DeliveryRepository deliveryRepository;
+
+    public DeliveryController(DeliveryPreparationService deliveryPreparationService, DeliveryCheckpointService deliveryCheckpointService, DeliveryRepository deliveryRepository) {
+        this.deliveryPreparationService = deliveryPreparationService;
+        this.deliveryCheckpointService = deliveryCheckpointService;
+        this.deliveryRepository = deliveryRepository;
+    }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)

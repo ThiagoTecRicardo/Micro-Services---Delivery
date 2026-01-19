@@ -7,6 +7,7 @@ import com.algaworks.algadelivery.delivery.tracking.domain.exception.DomainExcep
 import com.algaworks.algadelivery.delivery.tracking.domain.model.ContactPoint;
 import com.algaworks.algadelivery.delivery.tracking.domain.model.Delivery;
 import com.algaworks.algadelivery.delivery.tracking.domain.repository.DeliveryRepository;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,14 +26,14 @@ public class DeliveryPreparationService {
     private final CourierPayoutCalculationService courierPayoutCalculationService;
 
     @Transactional
-    public Delivery draft(DeliveryInput input) {
+    public com.ricardotec.delivery.delivery.tracking.domain.model.Delivery draft(com.ricardotec.delivery.delivery.tracking.api.model.@Valid DeliveryInput input) {
         Delivery delivery = Delivery.draft();
         handlePreparation(input, delivery);
         return deliveryRepository.saveAndFlush(delivery);
     }
 
     @Transactional
-    public Delivery edit(UUID deliveryId, DeliveryInput input) {
+    public com.ricardotec.delivery.delivery.tracking.domain.model.Delivery edit(UUID deliveryId, com.ricardotec.delivery.delivery.tracking.api.model.@Valid DeliveryInput input) {
         Delivery delivery = deliveryRepository.findById(deliveryId)
                 .orElseThrow(() -> new DomainException());
         delivery.removeItems();
